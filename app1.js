@@ -26,7 +26,7 @@ function toast(msg){var t=document.createElement('div');t.className='toast';t.te
 function bind(id,ev,fn){var el=gid(id);if(el){el.addEventListener(ev,fn)}}
 window.addEventListener('error',function(e){if(e.message){toast('⚠️ Erreur : '+e.message)}});
 var state={list:[],query:'',cat:'Tous',type:'Tous',editingId:null,authed:sessGet('lg_admin')==='1'};
-function loadDB(done){var local=null;try{local=JSON.parse(storeGet(DB_KEY))}catch(e){}
+function loadDB(done){var local=null;try{local=JSON.parse(storeGet(DB_KEY))}catch(e){}}
 if(local&&local.length){state.list=local;done();return}
 fetch('data/logiciels.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){state.list=(j&&j.length)?j:SEEDS;done()}).catch(function(){state.list=SEEDS;done()})}
 function saveDB(){storeSet(DB_KEY,JSON.stringify(state.list))}
@@ -44,7 +44,7 @@ function coverHTML(it){if(it.image)return '<img src="'+esc(it.image)+'" alt="" l
 function osInfo(os){var o=String(os||'').toLowerCase();if(o.indexOf('win')===0)return{ic:'#i-windows',c:'#38bdf8'};if(o.indexOf('mac')===0||o.indexOf('ios')===0)return{ic:'#i-apple',c:'#64748b'};if(o.indexOf('and')===0)return{ic:'#i-android',c:'#22c55e'};return{ic:'#i-monitor',c:'#93a0b8'}}
 function starsHTML(r){var rate=parseFloat(r);if(isNaN(rate))rate=4.5;var out='';for(var i=1;i<=5;i++){var cls=rate>=i?'st-full':(rate>i-1?'st-half':'st-empty');out+='<svg class="star '+cls+'" viewBox="0 0 24 24"><use href="#i-star"></use></svg>'}return out}
 function fmtSize(sz){var m=String(sz||'').match(/([\d.,]+)\s*([A-Za-z]+)?/);if(m)return '<b>'+esc(m[1])+'</b>'+(m[2]?'<i>'+esc(m[2])+'</i>':'');return '<b>'+esc(sz||'—')+'</b>'}
-function filtered(){var q=state.query.toLowerCase();return state.list.filter(function(it){var type=it.type||'Logiciel';var cat=it.category||'Autre';if(state.type!=='Tous'&&type!==state.type)return false;if(state.cat!=='Tous'&&cat!==state.cat)return false;if(q&&it.name.toLowerCase().indexOf(q)===-1&&cat.toLowerCase().indexOf(q)===-1)return false;return true}).sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||'')})}
+function filtered(){var q=state.query.toLowerCase();return state.list.filter(function(it){var type=it.type||'Logiciel';var cat=it.category||'Autre';if(state.type!=='Tous'&&type!==state.type)return false;if(state.cat!=='Tous'&&cat!==state.cat)return false;if(q&&it.name.toLowerCase().indexOf(q)===-1&&cat.toLowerCase().indexOf(q)===-1)return false;return true}).sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''))})}
 function renderStats(){gid('statCount').textContent=state.list.length;gid('statLog').textContent=state.list.filter(function(i){return(i.type||'Logiciel')==='Logiciel'}).length;gid('statApp').textContent=state.list.filter(function(i){return i.type==='Application'}).length}
 function renderSeg(){var btns=gid('segType').querySelectorAll('button');for(var i=0;i<btns.length;i++){btns[i].classList.toggle('active',btns[i].getAttribute('data-type')===state.type)}}
 function renderCats(){var seen={},cats=['Tous'];state.list.forEach(function(i){var c=i.category||'Autre';if(!seen[c]){seen[c]=1;cats.push(c)}});var html=cats.map(function(c){return '<a href="#/" class="cat-link'+(c===state.cat?' active':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</a>'}).join('');gid('catsNav').innerHTML=html;gid('mmCats').innerHTML=html}
