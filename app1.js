@@ -1,10 +1,19 @@
-var ADMIN_PASS='admin123';var DB_KEY='logiciel_db_v3';console.log('Logiciel v11 loaded');
+var ADMIN_PASS='admin123';
+var DB_KEY='logiciel_db_v3';
+console.log('Logiciel v11 loaded');
 function storeGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function storeSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function storeDel(k){try{localStorage.removeItem(k)}catch(e){}}
 function sessGet(k){try{return sessionStorage.getItem(k)}catch(e){return null}}
 function sessSet(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}
 function sessDel(k){try{sessionStorage.removeItem(k)}catch(e){}}
+function gid(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function hashN(s){var a=0,t=String(s||'');for(var i=0;i<t.length;i++){a+=t.charCodeAt(i)}return a}
+function initials(n){var w=String(n||'').trim().split(/\s+/).slice(0,2);return w.map(function(x){return x.charAt(0)}).join('').toUpperCase()}
+function toast(msg){var t=document.createElement('div');t.className='toast';t.textContent=msg;gid('toasts').appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='.4s';setTimeout(function(){t.remove()},400)},2800)}
+function bind(id,ev,fn){var el=gid(id);if(el){el.addEventListener(ev,fn)}}
+window.addEventListener('error',function(e){if(e.message){toast('⚠️ Erreur : '+e.message)}});
 function applyThemeIcon(){var l=document.body.classList.contains('light');gid('themeUse').setAttribute('href',l?'#i-moon':'#i-sun')}
 function toggleTheme(){var l=document.body.classList.toggle('light');storeSet('lg_theme',l?'light':'dark');applyThemeIcon();toast(l?'Mode clair ☀️':'Mode sombre 🌙')}
 var SEEDS=[
@@ -18,17 +27,13 @@ var SEEDS=[
 {id:'s8',name:'Internet Download Manager',type:'Logiciel',category:'Download Managers',os:'Windows',version:'6.42',size:'12 Mo',dl:435790,rate:4.5,price:'25 000 Ar',image:'',link:'https://www.internetdownloadmanager.com',date:'2026-07-22',info:"An online download manager : jusqu'à 5x plus rapide, reprise des téléchargements.",install:"Téléchargez le fichier d'installation\nExécutez idman.exe\nSuivez l'assistant (Next → Install)\nRedémarrez votre navigateur\nProfitez de l'intégration IDM ✓"},
 {id:'s9',name:'Altium Designer',type:'Logiciel',category:'Engineering',os:'Windows',version:'26.9.1.10',size:'3.15 Go',dl:165918,rate:4,price:'150 000 Ar',image:'',link:'https://www.autodesk.com/products/autocad',date:'2026-07-20',info:"Best PCB Design Software for Engineers : conception 2D/3D et collaboration cloud.",install:"Téléchargez l'installateur\nExécutez le setup en administrateur\nChoisissez la langue et le dossier\nRenseignez votre licence\nLancez et configurez vos gabarits"},
 {id:'s10',name:'WinRAR',type:'Logiciel',category:'Tools & Utilities',os:'Windows',version:'7.10',size:'3.5 Mo',dl:512340,rate:4.5,price:'15 000 Ar',image:'',link:'https://www.rarlab.com',date:'2026-07-15',info:"L'outil incontournable pour compresser et extraire : RAR, ZIP, 7z, AES-256.",install:"Téléchargez la version adaptée à votre système\nExécutez winrar.exe\nCliquez sur Installer\nAssociez les formats proposés\nTerminé — clic droit pour extraire ✓"}];
-function gid(id){return document.getElementById(id)}
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function hashN(s){var a=0,t=String(s||'');for(var i=0;i<t.length;i++){a+=t.charCodeAt(i)}return a}
-function initials(n){var w=String(n||'').trim().split(/\s+/).slice(0,2);return w.map(function(x){return x.charAt(0)}).join('').toUpperCase()}
-function toast(msg){var t=document.createElement('div');t.className='toast';t.textContent=msg;gid('toasts').appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='.4s';setTimeout(function(){t.remove()},400)},2800)}
-function bind(id,ev,fn){var el=gid(id);if(el){el.addEventListener(ev,fn)}}
-window.addEventListener('error',function(e){if(e.message){toast('⚠️ Erreur : '+e.message)}});
 var state={list:[],query:'',cat:'Tous',type:'Tous',editingId:null,authed:sessGet('lg_admin')==='1'};
-function loadDB(done){var local=null;try{local=JSON.parse(storeGet(DB_KEY))}catch(e){}}
+function loadDB(done){
+var local=null;
+try{local=JSON.parse(storeGet(DB_KEY))}catch(e){}
 if(local&&local.length){state.list=local;done();return}
-fetch('data/logiciels.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){state.list=(j&&j.length)?j:SEEDS;done()}).catch(function(){state.list=SEEDS;done()})}
+fetch('data/logiciels.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){state.list=(j&&j.length)?j:SEEDS;done()}).catch(function(){state.list=SEEDS;done()})
+}
 function saveDB(){storeSet(DB_KEY,JSON.stringify(state.list))}
 function closeMenu(){gid('mobileMenu').hidden=true;gid('burgerUse').setAttribute('href','#i-menu')}
 function toggleMenu(){var m=gid('mobileMenu');m.hidden=!m.hidden;gid('burgerUse').setAttribute('href',m.hidden?'#i-menu':'#i-close')}
