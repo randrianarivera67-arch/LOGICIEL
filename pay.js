@@ -43,3 +43,6 @@ setTimeout(function(){renderDrawer();injectSettings()},600);
 var pollInterval=setInterval(function(){var ap=document.getElementById('adminPanel');if(ap&&!ap.hidden&&!document.getElementById('paySettings')){injectSettings()}},800);
 setTimeout(function(){clearInterval(pollInterval)},30000);
 })();
+
+/* autoCloseDrawer */
+document.addEventListener('click',function(e){var d=document.querySelector('.drawer');if(!d||!d.classList.contains('open'))return;if(e.target.closest('.drawer')||e.target.closest('.pm-fab'))return;window.closeDrawer();},true);

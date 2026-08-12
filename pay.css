@@ -19,3 +19,5 @@
 .pm-m span{font-size:.78rem;font-weight:600;color:var(--text)}
 .pm-box{padding:14px;border:1px dashed var(--border);border-radius:12px;background:var(--ghost-bg);font-size:.86rem;color:var(--soft2);line-height:1.6}
 .pm-num{font-family:Sora;font-weight:800;font-size:1.05rem;color:var(--amber);word-break:break-all}
+
+.drawer{top:74px!important}
