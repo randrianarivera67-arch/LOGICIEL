@@ -6,7 +6,7 @@
 <title>Logiplus — Logiciels & Applications premium</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="pay.css">
-<link rel="stylesheet" href="intro.css">
+<link rel="stylesheet" href="hero.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
@@ -68,15 +68,23 @@
 </header>
 <section id="view-home" class="view">
 <div class="container">
-<div class="hero">
+<div class="hero"><div class="hero-grid"><div>
 <span class="pill">✦ Plateforme premium — sans compte requis</span>
 <h1>Logiciels & <span class="grad">Applications</span><br>en un seul clic.</h1>
-<p class="sub">Recherchez, cliquez, téléchargez. Prix fixés par l'administrateur — aucune inscription requise.</p>
+<p class="sub"><span id="twText">Recherchez, cliquez, téléchargez — sans compte requis.</span><span class="tw-cursor"></span></p>
 <div class="search"><svg class="ni ni-sm"><use href="#i-search"></use></svg><input id="search" type="search" placeholder="Rechercher un logiciel ou une application…" autocomplete="off"><kbd>/</kbd></div>
 <div class="stats">
 <div><b id="statCount">0</b><span>Produits disponibles</span></div>
 <div><b id="statLog">0</b><span>Logiciels</span></div>
 <div><b id="statApp">0</b><span>Applications</span></div>
+</div>
+<div class="hero-vis">
+<img class="main" src="img/hero.png" alt="Client et agent Logiplus+" onerror="this.style.display='none'">
+<div class="chat-b client"><span class="who">Client</span>Bonjour ! Je cherche un logiciel de design 🎨</div>
+<div class="chat-b agent" id="chatLoop"><span class="who">Agent Logiplus+</span>Bonjour ! Photoshop 2026 est disponible ✓</div>
+<span class="float-badge fb1">⚡ Téléchargement instantané</span>
+<span class="float-badge fb2">🔒 Paiement sécurisé</span>
+</div>
 </div>
 </div>
 <div class="toolbar">
@@ -171,6 +179,6 @@
 <script src="pay.js"></script>
 <script src="pager.js"></script>
 <script src="admin.js"></script>
-<script src="intro.js"></script>
+<script src="hero.js"></script>
 </body>
 </html>
