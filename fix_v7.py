@@ -1,0 +1,9 @@
+import re
+c = open('index.html', encoding='utf-8').read()
+loader = '''<div id="loader"><style>#loader{position:fixed;inset:0;z-index:9999;background:#05070f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}#loader .lg{width:74px;height:74px;animation:ldspin 1.6s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(56,189,248,.7))}#loader .bar{width:150px;height:4px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}#loader .bar i{display:block;height:100%;width:40%;border-radius:99px;background:linear-gradient(90deg,#38bdf8,#f43f5e,#8b5cf6);animation:ldbar 1.2s ease-in-out infinite}@keyframes ldspin{0%{transform:scale(1) rotate(0)}50%{transform:scale(1.12) rotate(180deg)}100%{transform:scale(1) rotate(360deg)}}@keyframes ldbar{0%{margin-left:-40%}100%{margin-left:100%}}#loader p{color:#93a0b8;font-size:.78rem;font-family:Arial,sans-serif;letter-spacing:.3em;font-weight:700}body>#loader~*{opacity:0}body.ready>#loader~*{opacity:1;transition:opacity .5s}</style><svg class="lg" viewBox="0 0 48 48" fill="none"><path d="M6 15 L30 6 L30 15 L6 24 Z" fill="#38bdf8"/><path d="M10 26 L34 17 L34 26 L10 35 Z" fill="#f43f5e"/><path d="M14 37 L38 28 L38 37 L14 46 Z" fill="#8b5cf6"/></svg><div class="bar"><i></i></div><p>LOGIPLUS+</p></div><script>window.addEventListener('load',function(){document.body.classList.add('ready');var l=document.getElementById('loader');if(l){l.style.transition='opacity .5s';l.style.opacity='0';setTimeout(function(){l.remove()},600)}});setTimeout(function(){document.body.classList.add('ready');var l=document.getElementById('loader');if(l)l.remove()},5000);</script>'''
+if 'id="loader"' not in c:
+    c = re.sub(r'<body([^>]*)>', lambda m: '<body' + m.group(1) + '>' + loader, c, count=1)
+    open('index.html', 'w', encoding='utf-8').write(c)
+    print('OK - loader logo animation ajouté')
+else:
+    print('Efa misy ny loader')
