@@ -1,4 +1,4 @@
-.stage{position:relative;max-width:860px;margin:0 auto 26px;height:360px;border-radius:24px;border:1px solid var(--border);overflow:hidden;backdrop-filter:blur(10px);background:linear-gradient(120deg,rgba(56,189,248,.18),rgba(244,63,94,.15),rgba(139,92,246,.2),rgba(56,189,248,.18));background-size:300% 300%;animation:gradMove 12s ease infinite}
+css = '''.stage{position:relative;max-width:860px;margin:0 auto 26px;height:360px;border-radius:24px;border:1px solid var(--border);overflow:hidden;backdrop-filter:blur(10px);background:linear-gradient(120deg,rgba(56,189,248,.18),rgba(244,63,94,.15),rgba(139,92,246,.2),rgba(56,189,248,.18));background-size:300% 300%;animation:gradMove 12s ease infinite}
 @keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @media(max-width:640px){.stage{height:340px}}
 .sbar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:rgba(255,255,255,.08);z-index:4}
@@ -34,4 +34,33 @@
 .femo{position:absolute;font-size:1.15rem;opacity:.4;animation:drift 7s ease-in-out infinite;z-index:1;filter:drop-shadow(0 0 6px rgba(56,189,248,.6))}
 @keyframes drift{0%,100%{transform:translateY(0) rotate(-5deg);opacity:.3}50%{transform:translateY(-18px) rotate(7deg);opacity:.85}}
 .burst{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:2;animation:bw .7s ease-out forwards}
-@keyframes bw{from{box-shadow:0 0 0 0 rgba(255,255,255,.7),0 0 30px 10px rgba(56,189,248,.5);opacity:1}to{box-shadow:0 0 0 150px rgba(255,255,255,0),0 0 60px 30px rgba(139,92,246,0);opacity:0}}
+@keyframes bw{from{box-shadow:0 0 0 0 rgba(255,255,255,.7),0 0 30px 10px rgba(56,189,248,.5);opacity:1}to{box-shadow:0 0 0 150px rgba(255,255,255,0),0 0 60px 30px rgba(139,92,246,0);opacity:0}}'''
+
+js = '''(function(){
+var st=document.getElementById('stage');
+if(st){
+var em=['💻','','✨','','🖱️','💾'];
+for(var j=0;j<6;j++){var f=document.createElement('span');f.className='femo';f.textContent=em[j%em.length];f.style.left=(5+Math.random()*88)+'%';f.style.top=(8+Math.random()*78)+'%';f.style.animationDelay=(Math.random()*5)+'s';st.appendChild(f)}
+for(var i=0;i<16;i++){var s=document.createElement('i');s.className='spark';s.style.left=(Math.random()*96)+'%';s.style.top=(Math.random()*92)+'%';s.style.animationDelay=(Math.random()*4)+'s';s.style.animationDuration=(2.5+Math.random()*3)+'s';st.appendChild(s)}
+}
+var scenes=['sc1','sc2','sc3','sc4'];
+var durs=[3000,4600,4600,3000];
+var total=durs[0]+durs[1]+durs[2]+durs[3];
+var idx=0,t0=Date.now(),s0=t0;
+function type(el,txt){if(!el)return;el.textContent='';var i=0;el.classList.add('tw2');(function t(){i++;el.textContent=txt.slice(0,i);if(i<txt.length)setTimeout(t,60)})()}
+var chatOn=false;
+function startChat(){if(chatOn)return;chatOn=true;var box=document.getElementById('chatLoop');if(!box)return;var msgs=['Bonjour ! Photoshop 2026 est disponible ✓','Paiement M\\'Vola confirmé — lien envoyé 🚀','Besoin d\\'aide ? Agent disponible 24/7 💬'];var mi=0;(function loop(){box.innerHTML='<span class="who">Agent Logiplus+</span><span class="typing"><i></i><i></i><i></i></span>';setTimeout(function(){box.innerHTML='<span class="who">Agent Logiplus+</span>'+msgs[mi%msgs.length];mi++;setTimeout(loop,3200)},1000)})();}
+function burst(){if(!st)return;var b=document.createElement('div');b.className='burst';st.appendChild(b);setTimeout(function(){b.remove()},750)}
+function show(i){for(var k=0;k<scenes.length;k++){var e=document.getElementById(scenes[k]);if(e)e.classList.toggle('on',k===i)}
+burst();
+if(i===0)type(document.getElementById('tw1'),'Logiplus+');
+if(i===1)startChat();
+if(i===2){var f=document.querySelectorAll('.ifeat.pay');for(var j=0;j<f.length;j++){(function(el,d){setTimeout(function(){el.classList.add('on')},d)})(f[j],j*250)}}
+if(i===3)type(document.getElementById('tw4'),'Prêt à commencer ?');}
+setInterval(function(){var now=Date.now();if(now-s0>durs[idx]){s0=now;idx=(idx+1)%scenes.length;show(idx)}var el=(now-t0)%total;var b=document.getElementById('stageBar');if(b)b.style.width=(el/total*100)+'%'},120);
+show(0);
+})();'''
+
+open('hero.css','w',encoding='utf-8').write(css)
+open('hero.js','w',encoding='utf-8').write(js)
+print('OK - fx animé ajouté')
