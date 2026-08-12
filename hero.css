@@ -67,3 +67,9 @@ html{touch-action:manipulation}
 
 @keyframes goldPulse{0%,100%{box-shadow:0 0 0 1px rgba(251,191,36,.22),0 0 22px rgba(251,191,36,.22),0 18px 70px -25px rgba(0,0,0,.85);border-color:rgba(251,191,36,.5)}50%{box-shadow:0 0 0 1px rgba(251,191,36,.5),0 0 46px rgba(251,191,36,.5),0 18px 70px -25px rgba(0,0,0,.85);border-color:rgba(251,191,36,.95)}}
 .hero .search{margin-bottom:14px}
+
+.hero{padding:6px 0 0!important}
+.hero .search{margin-bottom:10px}
+.stage-kicker{margin:0 auto 10px}
+.stage{margin:0 auto 16px}
+.toolbar{margin-top:0!important}
