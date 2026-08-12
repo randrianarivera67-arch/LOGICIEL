@@ -1,4 +1,4 @@
-.stage-kicker{font-family:Sora,sans-serif;font-weight:700;font-size:clamp(.95rem,2.6vw,1.3rem);color:var(--text);margin:4px auto 16px;max-width:860px;text-align:center;letter-spacing:.02em}
+css = '''.stage-kicker{font-family:Sora,sans-serif;font-weight:700;font-size:clamp(.95rem,2.6vw,1.3rem);color:var(--text);margin:4px auto 16px;max-width:860px;text-align:center;letter-spacing:.02em}
 .stage{position:relative;max-width:860px;margin:0 auto 26px;height:360px;border-radius:24px;border:1px solid var(--border);overflow:hidden;background:#05070f}
 .stage::after{content:'';position:absolute;inset:-6%;background:url("img/stage-bg.png") center/cover no-repeat;animation:kb 26s ease-in-out infinite alternate;z-index:0}
 @keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.14) translate(-2%,2%)}}
@@ -37,4 +37,12 @@ body.light .stage::before{mix-blend-mode:multiply;background:linear-gradient(120
 .femo{position:absolute;font-size:1.15rem;opacity:.4;animation:drift 7s ease-in-out infinite;z-index:2;filter:drop-shadow(0 0 6px rgba(56,189,248,.7))}
 @keyframes drift{0%,100%{transform:translateY(0) rotate(-5deg);opacity:.3}50%{transform:translateY(-18px) rotate(7deg);opacity:.85}}
 .burst{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:2;animation:bw .7s ease-out forwards}
-@keyframes bw{from{box-shadow:0 0 0 0 rgba(255,255,255,.7),0 0 30px 10px rgba(56,189,248,.5);opacity:1}to{box-shadow:0 0 0 150px rgba(255,255,255,0),0 0 60px 30px rgba(139,92,246,0);opacity:0}}
+@keyframes bw{from{box-shadow:0 0 0 0 rgba(255,255,255,.7),0 0 30px 10px rgba(56,189,248,.5);opacity:1}to{box-shadow:0 0 0 150px rgba(255,255,255,0),0 0 60px 30px rgba(139,92,246,0);opacity:0}}'''
+
+c = open('index.html', encoding='utf-8').read()
+c = c.replace('<div class="sbar"><i id="stageBar"></i></div>', '')
+if 'stage-kicker' not in c:
+    c = c.replace('<div class="stage" id="stage">', '<p class="stage-kicker">✨ Découvrez <span class="grad">vos logiciels préférés</span> sur notre plateforme ✨</p>\n<div class="stage" id="stage">')
+open('hero.css','w',encoding='utf-8').write(css)
+open('index.html','w',encoding='utf-8').write(c)
+print('OK - sary + kicker + tsy misy ligne')
