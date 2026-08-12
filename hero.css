@@ -1,7 +1,7 @@
 html,body{overflow-x:hidden!important;max-width:100%!important}
 #view-home,.container,.hero{max-width:100%;overflow-x:clip}
 html,body{overflow-x:hidden;max-width:100%}
-.stage-kicker{font-family:Sora,sans-serif;font-weight:700;font-size:clamp(.6rem,2.2vw,1.15rem);color:var(--text);margin:4px auto 16px;max-width:920px;text-align:center;letter-spacing:.02em;white-space:nowrap}
+.hero{padding-top:14px!important}.stage-kicker{font-family:Sora,sans-serif;font-weight:800;font-size:clamp(.55rem,2.7vw,1.5rem);color:var(--text);margin:2px auto 12px;max-width:920px;text-align:center;letter-spacing:.02em;white-space:nowrap}
 .kstar{width:1em;height:1em;vertical-align:-2px;filter:drop-shadow(0 0 6px rgba(251,191,36,.8))}
 .stage{position:relative;width:100%;max-width:min(820px,100%);margin:0 auto 26px;aspect-ratio:16/9;min-height:340px;border-radius:24px;border:1px solid var(--border);overflow:hidden;background:#05070f}
 .stage::after{content:'';position:absolute;inset:0;background:url("img/stage-bg.png") center/cover no-repeat;z-index:0}

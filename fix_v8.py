@@ -1,0 +1,6 @@
+css = open('hero.css', encoding='utf-8').read()
+css = css.replace('font-size:clamp(.6rem,2.2vw,1.15rem);', 'font-size:clamp(.55rem,2.7vw,1.5rem);')
+css = css.replace('.stage-kicker{font-family:Sora,sans-serif;font-weight:700;', '.hero{padding-top:14px!important}.stage-kicker{font-family:Sora,sans-serif;font-weight:800;')
+css = css.replace('margin:4px auto 16px;', 'margin:2px auto 12px;')
+open('hero.css', 'w', encoding='utf-8').write(css)
+print('OK - espace rétréci + soratra lehibe')
