@@ -40,4 +40,6 @@ window.exportSettings=function(){var blob=new Blob([JSON.stringify(SETTINGS,null
 fetch('data/settings.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j){if(j.orange)SETTINGS.orange=j.orange;if(j.mvola)SETTINGS.mvola=j.mvola;if(j.airtel)SETTINGS.airtel=j.airtel;if(j.paypal)SETTINGS.paypal=j.paypal;injectSettingsValues()}}).catch(function(){});
 window.addEventListener('hashchange',function(){setTimeout(injectSettings,300)});
 setTimeout(function(){renderDrawer();injectSettings()},600);
+var pollInterval=setInterval(function(){var ap=document.getElementById('adminPanel');if(ap&&!ap.hidden&&!document.getElementById('paySettings')){injectSettings()}},800);
+setTimeout(function(){clearInterval(pollInterval)},30000);
 })();
