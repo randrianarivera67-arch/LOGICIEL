@@ -3,7 +3,7 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
 html,body{overflow-x:hidden;max-width:100%}
 .hero{padding-top:14px!important}.stage-kicker{font-family:Sora,sans-serif;font-weight:800;font-size:clamp(.55rem,2.7vw,1.5rem);color:var(--text);margin:2px auto 12px;max-width:920px;text-align:center;letter-spacing:.02em;white-space:nowrap}
 .kstar{width:1em;height:1em;vertical-align:-2px;filter:drop-shadow(0 0 6px rgba(251,191,36,.8))}
-.stage{position:relative;width:100%;max-width:min(820px,100%);margin:0 auto 26px;aspect-ratio:16/9;min-height:340px;border-radius:24px;border:1px solid var(--border);overflow:hidden;background:#05070f}
+.stage{position:relative;width:100%;max-width:min(820px,100%);margin:0 auto 26px;aspect-ratio:16/9;min-height:340px;border-radius:24px;border:1.5px solid rgba(251,191,36,.65);overflow:hidden;background:#05070f;box-shadow:0 0 0 1px rgba(251,191,36,.22),0 0 34px rgba(251,191,36,.3),0 18px 70px -25px rgba(0,0,0,.85);animation:goldPulse 3.5s ease-in-out infinite}
 .stage::after{content:'';position:absolute;inset:0;background:url("img/stage-bg.png") center/cover no-repeat;z-index:0}
 @keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.14) translate(-2%,2%)}}
 .stage::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(120deg,rgba(56,189,248,.2),rgba(244,63,94,.14),rgba(139,92,246,.22),rgba(45,212,191,.18));background-size:300% 300%;animation:gradMove 12s ease infinite;mix-blend-mode:screen}
@@ -64,3 +64,5 @@ body.light .stage::before{mix-blend-mode:multiply;background:linear-gradient(120
 body{padding-top:74px}
 .theme-fab,.pm-fab{position:fixed!important;z-index:70}
 html{touch-action:manipulation}
+
+@keyframes goldPulse{0%,100%{box-shadow:0 0 0 1px rgba(251,191,36,.22),0 0 22px rgba(251,191,36,.22),0 18px 70px -25px rgba(0,0,0,.85);border-color:rgba(251,191,36,.5)}50%{box-shadow:0 0 0 1px rgba(251,191,36,.5),0 0 46px rgba(251,191,36,.5),0 18px 70px -25px rgba(0,0,0,.85);border-color:rgba(251,191,36,.95)}}
