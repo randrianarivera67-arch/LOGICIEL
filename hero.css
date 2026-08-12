@@ -110,3 +110,9 @@ html{touch-action:manipulation}
 .tspark.t2{left:47%;bottom:20%;animation-delay:.15s;background:#f472b6;box-shadow:0 0 8px 2px rgba(244,114,182,.6)}
 .tspark.t3{left:56%;bottom:22%;animation-delay:.3s}
 @keyframes thand{from{transform:translateY(0);opacity:.9}to{transform:translateY(-4px);opacity:.4}}
+
+.osrow{display:flex;gap:20px;align-items:stretch;justify-content:center;flex-wrap:wrap}
+.osic{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:rgba(5,8,15,.72);opacity:0;transform:translateY(26px) scale(.7);transition:.6s cubic-bezier(.2,.9,.3,1.35)}
+.osic.on{opacity:1;transform:translateY(0) scale(1)}
+.osic svg{width:44px;height:44px;filter:drop-shadow(0 0 10px currentColor)}
+.osic span{font-size:.62rem;color:#dbe6f5;font-weight:700}
