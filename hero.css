@@ -66,3 +66,4 @@ body{padding-top:74px}
 html{touch-action:manipulation}
 
 @keyframes goldPulse{0%,100%{box-shadow:0 0 0 1px rgba(251,191,36,.22),0 0 22px rgba(251,191,36,.22),0 18px 70px -25px rgba(0,0,0,.85);border-color:rgba(251,191,36,.5)}50%{box-shadow:0 0 0 1px rgba(251,191,36,.5),0 0 46px rgba(251,191,36,.5),0 18px 70px -25px rgba(0,0,0,.85);border-color:rgba(251,191,36,.95)}}
+.hero .search{margin-bottom:14px}
