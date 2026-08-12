@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Logiciel — Logiciels & Applications premium</title>
+<title>Logiplus — Logipluss & Applications premium</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="pay.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +50,7 @@
 <a class="brand" href="#/" onclick="goHome(event)">
 <img src="logo.png" class="brand-img" alt="Logo" onload="this.nextElementSibling.style.display='none'" onerror="this.classList.add('hide')">
 <svg class="brand-svg" viewBox="0 0 48 48" fill="none" aria-hidden="true"><defs><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#2563eb"/></linearGradient><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fb7185"/><stop offset="1" stop-color="#dc2626"/></linearGradient><linearGradient id="gp" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><path d="M6 15 L30 6 L30 15 L6 24 Z" fill="url(#gb)"/><path d="M10 26 L34 17 L34 26 L10 35 Z" fill="url(#gr)"/><path d="M14 37 L38 28 L38 37 L14 46 Z" fill="url(#gp)"/></svg>
-<span>Logiciel</span></a>
+<span>Logiplus<sup style="font-size:0.6em;vertical-align:super;color:var(--amber)">+</sup></span></a>
 <nav class="cats-nav" id="catsNav"></nav>
 <div class="nav-actions">
 <a href="#/" class="nav-link home-link" onclick="goHome(event)"><svg class="ni ni-sm"><use href="#i-home"></use></svg> Accueil</a>
@@ -69,19 +69,19 @@
 <div class="container">
 <div class="hero">
 <span class="pill">✦ Plateforme premium — sans compte requis</span>
-<h1>Logiciels & <span class="grad">Applications</span><br>en un seul clic.</h1>
+<h1>Logipluss & <span class="grad">Applications</span><br>en un seul clic.</h1>
 <p class="sub">Recherchez, cliquez, téléchargez. Prix fixés par l'administrateur — aucune inscription requise.</p>
-<div class="search"><svg class="ni ni-sm"><use href="#i-search"></use></svg><input id="search" type="search" placeholder="Rechercher un logiciel ou une application…" autocomplete="off"><kbd>/</kbd></div>
+<div class="search"><svg class="ni ni-sm"><use href="#i-search"></use></svg><input id="search" type="search" placeholder="Rechercher un logiplus ou une application…" autocomplete="off"><kbd>/</kbd></div>
 <div class="stats">
 <div><b id="statCount">0</b><span>Produits disponibles</span></div>
-<div><b id="statLog">0</b><span>Logiciels</span></div>
+<div><b id="statLog">0</b><span>Logipluss</span></div>
 <div><b id="statApp">0</b><span>Applications</span></div>
 </div>
 </div>
 <div class="toolbar">
 <div class="seg" id="segType">
 <button data-type="Tous" class="active" type="button">Tous</button>
-<button data-type="Logiciel" type="button">Logiciels</button>
+<button data-type="Logiplus" type="button">Logipluss</button>
 <button data-type="Application" type="button">Applications</button>
 </div>
 <span id="resultInfo" class="result-info"></span>
@@ -113,13 +113,13 @@
 <button id="btnLogout" class="btn ghost" type="button" onclick="doLogout()"><svg class="ni ni-sm"><use href="#i-logout"></use></svg> Quitter</button>
 </div>
 </div>
-<div class="sync-note">💡 <b>Astuce :</b> ajoutez les produits ici → « Exporter » → placez <code>logiciels.json</code> dans un dossier <code>data/</code> à côté de <code>index.html</code>.</div>
+<div class="sync-note">💡 <b>Astuce :</b> ajoutez les produits ici → « Exporter » → placez <code>logipluss.json</code> dans un dossier <code>data/</code> à côté de <code>index.html</code>.</div>
 <div class="admin-grid">
 <form id="softForm" class="panel" onsubmit="doSubmit();return false">
 <h3 id="formTitle"><svg class="ni"><use href="#i-plus"></use></svg> <span id="formTitleText">Ajouter un produit</span></h3>
 <label>Nom *<input id="f-name" placeholder="Ex : Adobe Photoshop 2026"></label>
 <div class="row2">
-<label>Type<select id="f-type"><option value="Logiciel">Logiciel</option><option value="Application">Application</option></select></label>
+<label>Type<select id="f-type"><option value="Logiplus">Logiplus</option><option value="Application">Application</option></select></label>
 <label>Catégorie<input id="f-cat" list="catList" placeholder="Ex : Design"><datalist id="catList"></datalist></label>
 </div>
 <div class="row2">
@@ -160,7 +160,7 @@
 <button class="theme-fab" id="themeFab" onclick="toggleTheme()" title="Clair / Sombre" type="button"><svg class="ni"><use id="themeUse" href="#i-sun"></use></svg></button>
 <footer>
 <div class="container">
-<span>© 2026 <b style="color:var(--text)">Logiciel</b> • v11</span>
+<span>© 2026 <b style="color:var(--text)">Logiplus</b> • v11</span>
 <a href="#/admin" onclick="goAdmin(event)"><svg class="ni ni-sm"><use href="#i-lock"></use></svg> Espace Admin</a>
 </div>
 </footer>
