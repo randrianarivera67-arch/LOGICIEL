@@ -59,3 +59,8 @@ body.light .stage::before{mix-blend-mode:multiply;background:linear-gradient(120
 @media(min-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
 #grid,.grid{grid-template-columns:1fr}
 @media(min-width:900px){#grid,.grid{grid-template-columns:repeat(2,1fr)}}
+
+.nav{position:fixed!important;top:0;left:0;right:0;z-index:100}
+body{padding-top:74px}
+.theme-fab,.pm-fab{position:fixed!important;z-index:70}
+html{touch-action:manipulation}
