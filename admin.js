@@ -1,3 +1,13 @@
+
+window.PROXY="https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg?p=";
+window.UPLOAD="https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg-upload";
+window.getImageUrl=function(p){if(!p||p.length<2)return "";if(p.startsWith("http"))return p;return window.PROXY+p;};
+window.uploadToTelegram=function(file){
+  var fd=new FormData();fd.append('file',file);
+  return fetch(window.UPLOAD,{method:'POST',body:fd}).then(function(r){return r.json()}).then(function(d){
+    if(!d.ok)throw new Error(d.err||"Upload failed");return d.file_path;
+  });
+};
 (function(){
 function g(id){return document.getElementById(id)}
 var st=document.createElement('style');st.textContent='.adm-menu{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.adm-m{padding:10px 16px;border-radius:12px;border:1px solid var(--border);background:var(--ghost-bg);color:var(--muted);font-weight:600;font-size:.85rem;cursor:pointer;transition:.2s}.adm-m.active{background:var(--grad);color:#fff;border-color:transparent}.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}.dash-c{padding:16px;text-align:center}.dash-c b{display:block;font-family:Sora;font-size:1.5rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;color:transparent}.dash-c span{color:var(--muted);font-size:.78rem}';document.head.appendChild(st);
