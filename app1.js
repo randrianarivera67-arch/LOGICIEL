@@ -1,3 +1,4 @@
+window.PROXY="https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg?p=";window.UPLOAD="https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg-upload";window.getImageUrl=function(p){if(!p||p.length<2)return "";if(p.startsWith("http"))return p;return window.PROXY+p};
 var ADMIN_PASS='admin123';
 var DB_KEY='logiciel_db_v3';
 console.log('Logiciel v11 loaded');
@@ -63,3 +64,8 @@ function renderStats(){var a=gid('statCount'),b=gid('statLog'),d=gid('statApp');
 function renderSeg(){var btns=gid('segType').querySelectorAll('button');for(var i=0;i<btns.length;i++){btns[i].classList.toggle('active',btns[i].getAttribute('data-type')===state.type)}}
 function renderCats(){var seen={},cats=['Tous'];state.list.forEach(function(i){var c=i.category||'Autre';if(!seen[c]){seen[c]=1;cats.push(c)}});var html=cats.map(function(c){return '<a href="#/" class="cat-link'+(c===state.cat?' active':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</a>'}).join('');gid('catsNav').innerHTML=html;gid('mmCats').innerHTML=html}
 function renderGrid(){var items=filtered();renderStats();gid('resultInfo').textContent=items.length+' résultat'+(items.length>1?'s':'');gid('empty').hidden=items.length>0;var title=state.cat!=='Tous'?state.cat:(state.type==='Tous'?'Tous les produits':(state.type==='Logiciel'?'Windows & Logiciels':'Applications'));gid('listTitle').textContent=title;gid('grid').innerHTML=items.map(function(it,i){var type=it.type||'Logiciel';var os=osInfo(it.os);return '<article class="card" data-open="'+esc(it.id)+'" style="animation-delay:'+(i*40)+'ms"><div class="c-top"><div class="c-icon"><span class="t-badge tb-'+esc(type)+'">'+esc(type)+'</span>'+coverHTML(it)+'<span class="p-badge">'+esc(it.price||'—')+'</span></div><div class="c-head"><h3>'+esc(it.name)+(it.version?' '+esc(it.version):'')+'</h3><p class="c-desc">'+esc(it.info||'')+'</p><span class="c-cat">'+esc(it.category||'Autre')+'</span></div></div><div class="c-mid"><span class="c-os"><svg class="ni ni-sm" style="color:'+os.c+';filter:none"><use href="'+os.ic+'"></use></svg>'+esc(it.os||'Autre')+'</span><span class="c-dl"><svg class="ni ni-sm" style="color:var(--muted);filter:none"><use href="#i-cloud-dl"></use></svg>'+esc(it.dl||0)+'</span></div><div class="c-bot"><div class="c-rep"><span>Reputation</span><div class="stars">'+starsHTML(it.rate)+'</div></div><div class="c-size">'+fmtSize(it.size)+'</div></div></article>'}).join('')}
+
+window.uploadToTelegram=function(file){
+  var fd=new FormData();fd.append('file',file);
+  return fetch(window.UPLOAD,{method:'POST',body:fd}).then(function(r){return r.json()}).then(function(d){if(!d.ok)throw new Error(d.err);return d.file_path});
+};
