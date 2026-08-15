@@ -1,7 +1,20 @@
-(function(){
+import re
+old = ''
+try:
+    old = open('supa.js', encoding='utf-8').read()
+except Exception:
+    pass
+mk = re.search(r"var KEY='([^']*)'", old)
+KEY = mk.group(1) if mk else 'sb_publishable_rveJ3wjRsYkcPWYdaPSqJA_RKSiGqDF'
+ma = re.search(r"var DBKEY='([^']*)'", old)
+a1 = open('app1.js', encoding='utf-8').read()
+md = re.search(r"localStorage\.(?:get|set)Item\(['\"]([^'\"]+)['\"]", a1)
+DBKEY = ma.group(1) if ma else (md.group(1) if md else 'lg_db')
+
+supa = '''(function(){
 var URL='https://cshmobqykkqjmusnkeom.supabase.co';
-var KEY='sb_publishable_rveJ3wjRsYkcPWYdaPSqJA_RKSiGqDF';
-var DBKEY='lg_db';
+var KEY='__KEY__';
+var DBKEY='__DBKEY__';
 var PROXY='https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg?p=';
 var UP='https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg-upload';
 window.PROXY=PROXY;window.UPLOAD=UP;
@@ -28,4 +41,6 @@ if(!document.getElementById('supaBtn')){var b=document.createElement('button');b
 if(!document.getElementById('tgUpBtn')){var u=document.createElement('button');u.id='tgUpBtn';u.style.cssText='position:fixed;right:14px;bottom:90px;z-index:999;background:#2563eb;color:#fff;border:none;border-radius:30px;padding:12px 16px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.35)';u.textContent='Sary Telegram';u.onclick=function(){var i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=function(){if(!i.files[0])return;if(window.toast)toast('Upload sary...');window.uploadToTelegram(i.files[0]).then(function(p){if(window.toast)toast('OK '+p);try{navigator.clipboard.writeText(p)}catch(e){}var ins=document.querySelectorAll('input[id*="image"],input[name*="image"],input[placeholder*="image"],input[id*="img"],input[name*="img"]');for(var k=0;k<ins.length;k++)ins[k].value=p}).catch(function(e){if(window.toast)toast('Erreur: '+e.message)})};i.click()};v.appendChild(u)}
 }
 if(tries>40)clearInterval(iv)},700);
-})();
+})();'''.replace('__KEY__', KEY).replace('__DBKEY__', DBKEY)
+open('supa.js', 'w', encoding='utf-8').write(supa)
+print('OK supa.js v29 - auto-sync + upload button')
