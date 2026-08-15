@@ -1,6 +1,6 @@
 (function(){
 var URL='https://cshmobqykkqjmusnkeom.supabase.co';
-var KEY='sb_publishable_rveJ3ljRsYkcPWYdaPSqJA_RKSiGqDF';
+var KEY='sb_publishable_rveJ3wjRsYkcPWYdaPSqJA_RKSiGqDF';
 var DBKEY='lg_db';
 function hdrs(x){var h={'apikey':KEY,'Content-Type':'application/json'};if(x)for(var k in x)h[k]=x[k];return h}
 function clean(p){return{id:p.id,name:p.name,type:p.type||'Logiciel',category:p.category||'Design',os:p.os||'Windows',version:p.version||'',size:p.size||'',dl:p.dl||0,rate:p.rate||4.5,price:p.price||'',image:p.image||'',link:p.link||'',date:p.date||'',info:p.info||'',install:p.install||''}}
