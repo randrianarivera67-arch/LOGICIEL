@@ -1,4 +1,19 @@
-(function(){
+# 1. app1.js : coverHTML -> getImageUrl
+a = open('app1.js', encoding='utf-8').read()
+a = a.replace("'<img src=\"'+esc(it.image)+'\" alt=\"\" loading=\"lazy\">'",
+              "'<img src=\"'+esc(window.getImageUrl?getImageUrl(it.image):it.image)+'\" alt=\"\" loading=\"lazy\">'")
+open('app1.js', 'w', encoding='utf-8').write(a)
+print('OK app1.js coverHTML')
+
+# 2. admin.js : rows thumb -> getImageUrl
+b = open('admin.js', encoding='utf-8').read()
+b = b.replace("var thumb=it.image?'<img src=\"'+esc(it.image)+'\" alt=\"\">':",
+              "var thumb=it.image?'<img src=\"'+esc(window.getImageUrl?getImageUrl(it.image):it.image)+'\" alt=\"\">':")
+open('admin.js', 'w', encoding='utf-8').write(b)
+print('OK admin.js rows')
+
+# 3. supa.js : regen marina (DBKEY logiciel_db_v3, auth check, onFileChange upload)
+supa = '''(function(){
 var URL='https://cshmobqykkqjmusnkeom.supabase.co';
 var KEY='sb_publishable_rveJ3wjRsYkcPWYdaPSqJA_RKSiGqDF';
 var DBKEY='logiciel_db_v3';
@@ -34,4 +49,6 @@ var v=document.getElementById('view-admin');
 if(auth&&v&&!v.hidden&&!document.getElementById('supaBtn')){var b=document.createElement('button');b.id='supaBtn';b.className='btn';b.style.cssText='background:linear-gradient(135deg,#38bdf8,#2563eb);color:#fff;border:none;margin:8px;padding:10px 16px;border-radius:12px;font-weight:700';b.textContent='Sync Supabase';b.onclick=function(){window.supaSync();};v.insertBefore(b,v.firstChild);}
 if(!auth){var sb=document.getElementById('supaBtn');if(sb)sb.remove();}
 if(tries>60)clearInterval(iv);},700);
-})();
+})();'''
+open('supa.js', 'w', encoding='utf-8').write(supa)
+print('OK supa.js v30')

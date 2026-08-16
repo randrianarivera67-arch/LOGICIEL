@@ -55,7 +55,7 @@ function togglePass(){gid('loginPass').type=gid('showPass').checked?'text':'pass
 function doLogin(){var v=(gid('loginPass').value||'').trim();if(!v){toast('Saisissez le mot de passe');return false}
 if(v===ADMIN_PASS){state.authed=true;sessSet('lg_admin','1');renderAdmin();toast('Bienvenue admin 👋')}else{toast('Mot de passe incorrect ❌')}
 gid('loginPass').value='';return false}
-function coverHTML(it){if(it.image)return '<img src="'+esc(it.image)+'" alt="" loading="lazy">';return '<div class="cover-fb cg'+(hashN(it.name)%5)+'"><span>'+esc(initials(it.name))+'</span></div>'}
+function coverHTML(it){if(it.image)return '<img src="'+esc(window.getImageUrl?getImageUrl(it.image):it.image)+'" alt="" loading="lazy">';return '<div class="cover-fb cg'+(hashN(it.name)%5)+'"><span>'+esc(initials(it.name))+'</span></div>'}
 function osInfo(os){var o=String(os||'').toLowerCase();if(o.indexOf('win')===0)return{ic:'#i-windows',c:'#38bdf8'};if(o.indexOf('mac')===0||o.indexOf('ios')===0)return{ic:'#i-apple',c:'#64748b'};if(o.indexOf('and')===0)return{ic:'#i-android',c:'#22c55e'};return{ic:'#i-monitor',c:'#93a0b8'}}
 function starsHTML(r){var rate=parseFloat(r);if(isNaN(rate))rate=4.5;var out='';for(var i=1;i<=5;i++){var cls=rate>=i?'st-full':(rate>i-1?'st-half':'st-empty');out+='<svg class="star '+cls+'" viewBox="0 0 24 24"><use href="#i-star"></use></svg>'}return out}
 function fmtSize(sz){var m=String(sz||'').match(/([\d.,]+)\s*([A-Za-z]+)?/);if(m)return '<b>'+esc(m[1])+'</b>'+(m[2]?'<i>'+esc(m[2])+'</i>':'');return '<b>'+esc(sz||'—')+'</b>'}
