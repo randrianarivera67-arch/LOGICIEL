@@ -1,4 +1,4 @@
-window.PROXY="https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg?p=";window.UPLOAD="https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg-upload";window.getImageUrl=function(p){if(!p||p.length<2)return "";if(p.startsWith("http"))return p;return window.PROXY+p};
+window.PROXY="";window.UPLOAD="https://cshmobqykkqjmusnkeom.supabase.co/functions/v1/tg-upload";window.getImageUrl=function(p){if(!p||p.length<2)return "";if(p.startsWith("http"))return p;return window.PROXY+p};
 var ADMIN_PASS='admin123';
 var DB_KEY='logiciel_db_v3';
 console.log('Logiciel v11 loaded');
