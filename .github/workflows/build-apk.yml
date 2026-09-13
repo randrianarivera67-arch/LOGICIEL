@@ -1,0 +1,63 @@
+name: Build Admin APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'admin.html'
+      - 'admin.js'
+      - 'supa.js'
+      - 'pay.js'
+      - 'app1.js'
+      - 'app2.js'
+      - 'version.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    
+    - name: Install dependencies
+      run: |
+        npm install
+        npx cap sync android
+    
+    - name: Build APK
+      run: |
+        cd android
+        chmod +x gradlew
+        ./gradlew assembleDebug
+    
+    - name: Upload APK to GitHub Releases
+      uses: softprops/action-gh-release@v1
+      with:
+        files: android/app/build/outputs/apk/debug/app-debug.apk
+        tag_name: v${{ github.run_number }}
+        name: Admin APK v${{ github.run_number }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Update version.json
+      run: |
+        echo "{\"version\":\"1.0.${{ github.run_number }}\",\"download_url\":\"https://github.com/${{ github.repository }}/releases/download/v${{ github.run_number }}/app-debug.apk\"}" > version.json
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add version.json
+        git commit -m "Update version to 1.0.${{ github.run_number }}" || exit 0
+        git push || exit 0
