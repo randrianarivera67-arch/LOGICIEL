@@ -1,6 +1,7 @@
 name: Build Admin APK
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
@@ -11,75 +12,69 @@ on:
       - 'app1.js'
       - 'app2.js'
       - 'version.json'
+      - 'capacitor.config.json'
 
 permissions:
   contents: write
-  packages: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-    
-    - name: Setup Node.js 22 LTS
+
+    - name: Setup Node.js 22
       uses: actions/setup-node@v4
       with:
         node-version: '22'
-    
-    - name: Setup Java
+
+    - name: Setup Java 17
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
-    
+
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-    
-    - name: Install dependencies
+
+    - name: Prepare web dir
       run: |
-        npm install
-        npx cap sync android
-    
+        mkdir -p www
+        echo "<html><body></body></html>" > www/index.html
+
+    - name: Install deps
+      run: npm install
+
+    - name: Add Android platform if missing
+      run: |
+        if [ ! -d android ]; then npx cap add android; fi
+
+    - name: Sync
+      run: npx cap sync android
+
     - name: Build APK
       run: |
         cd android
         chmod +x gradlew
         ./gradlew assembleDebug
-    
+
     - name: Rename APK
-      run: |
-        mv android/app/build/outputs/apk/debug/app-debug.apk admin.apk
-    
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: cp android/app/build/outputs/apk/debug/app-debug.apk admin.apk
+
+    - name: Create Release + upload APK
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ github.run_number }}
-        release_name: Admin APK v${{ github.run_number }}
-        draft: false
-        prerelease: false
-    
-    - name: Upload APK to Release
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./admin.apk
-        asset_name: admin.apk
-        asset_content_type: application/vnd.android.package-archive
-    
-    - name: Update version.json
+        name: Admin APK v${{ github.run_number }}
+        files: admin.apk
+
+    - name: Bump version
       run: |
-        echo "{\"version\":\"1.0.${{ github.run_number }}\",\"download_url\":\"https://github.com/${{ github.repository }}/releases/download/v${{ github.run_number }}/admin.apk\"}" > version.json
+        V="1.0.${{ github.run_number }}"
+        sed -i "s/var CURRENT_VERSION = \"[^\"]*\";/var CURRENT_VERSION = \"$V\";/" admin.html || true
+        echo "{\"version\":\"$V\",\"download_url\":\"https://github.com/${{ github.repository }}/releases/latest/download/admin.apk\"}" > version.json
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
-        git add version.json
-        git commit -m "Update version to 1.0.${{ github.run_number }}" || exit 0
+        git add admin.html version.json
+        git commit -m "chore: version $V [skip ci]" || exit 0
         git push || exit 0

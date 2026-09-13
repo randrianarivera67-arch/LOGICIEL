@@ -1,13 +1,9 @@
 {
   "appId": "com.logiplus.admin",
   "appName": "Logiplus Admin",
-  "webDir": ".",
+  "webDir": "www",
   "server": {
+    "url": "https://logiplus.pages.dev/admin.html",
     "androidScheme": "https"
-  },
-  "plugins": {
-    "App": {
-      "launchShowDuration": 0
-    }
   }
 }
