@@ -14,6 +14,7 @@ on:
       - 'version.json'
       - 'capacitor.config.json'
       - 'package.json'
+      - 'assets/**'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -58,6 +59,19 @@ jobs:
 
     - name: Sync Capacitor
       run: npx cap sync android
+
+    - name: Generate Logiplus launcher icons
+      run: |
+        if [ ! -f assets/icon.png ]; then echo "⚠️ Tsy misy assets/icon.png"; exit 0; fi
+        RES=android/app/src/main/res
+        rm -f $RES/mipmap-anydpi-v26/ic_launcher.xml $RES/mipmap-anydpi-v26/ic_launcher_round.xml
+        for pair in "mdpi 48" "hdpi 72" "xhdpi 96" "xxhdpi 144" "xxxhdpi 192"; do
+          set -- $pair
+          mkdir -p $RES/mipmap-$1
+          convert assets/icon.png -gravity center -crop 1:1 +repage -resize ${2}x${2} $RES/mipmap-$1/ic_launcher.png
+          cp $RES/mipmap-$1/ic_launcher.png $RES/mipmap-$1/ic_launcher_round.png
+        done
+        echo "✅ Icon Logiplus voaforona"
 
     - name: Build APK
       run: |
