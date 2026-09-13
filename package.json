@@ -1,26 +1,16 @@
 {
-  "name": "logiciel",
+  "name": "logiplus-admin",
   "version": "1.0.0",
-  "description": "",
-  "main": "admin.js",
+  "description": "Logiplus Admin App",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "echo done"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/randrianarivera67-arch/LOGICIEL.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/randrianarivera67-arch/LOGICIEL/issues"
-  },
-  "homepage": "https://github.com/randrianarivera67-arch/LOGICIEL#readme",
   "dependencies": {
-    "@capacitor/android": "^8.5.2",
-    "@capacitor/cli": "^8.5.2",
-    "@capacitor/core": "^8.5.2"
+    "@capacitor/core": "^7.4.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.0",
+    "@capacitor/android": "^7.4.0"
   }
 }

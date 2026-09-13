@@ -13,6 +13,7 @@ on:
       - 'app2.js'
       - 'version.json'
       - 'capacitor.config.json'
+      - 'package.json'
 
 permissions:
   contents: write
@@ -42,15 +43,12 @@ jobs:
         mkdir -p www
         echo "<html><body></body></html>" > www/index.html
 
-    - name: Install deps
-      run: npm install
-
-    - name: Add Android platform if missing
+    - name: Clean install
       run: |
-        if [ ! -d android ]; then npx cap add android; fi
-
-    - name: Sync
-      run: npx cap sync android
+        rm -rf node_modules package-lock.json android
+        npm install
+        npx cap add android
+        npx cap sync android
 
     - name: Build APK
       run: |
@@ -71,10 +69,9 @@ jobs:
     - name: Bump version
       run: |
         V="1.0.${{ github.run_number }}"
-        sed -i "s/var CURRENT_VERSION = \"[^\"]*\";/var CURRENT_VERSION = \"$V\";/" admin.html || true
-        echo "{\"version\":\"$V\",\"download_url\":\"https://github.com/${{ github.repository }}/releases/latest/download/admin.apk\"}" > version.json
+        echo "{\"version\":\"$V\",\"download_url\":\"https://github.com/${{ github.repository }}/releases/download/v${{ github.run_number }}/admin.apk\"}" > version.json
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
-        git add admin.html version.json
+        git add version.json
         git commit -m "chore: version $V [skip ci]" || exit 0
         git push || exit 0
