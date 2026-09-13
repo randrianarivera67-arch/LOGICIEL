@@ -12,12 +12,18 @@ on:
       - 'app2.js'
       - 'version.json'
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Setup Node.js 22 LTS
       uses: actions/setup-node@v4
@@ -44,18 +50,34 @@ jobs:
         chmod +x gradlew
         ./gradlew assembleDebug
     
-    - name: Upload APK to GitHub Releases
-      uses: softprops/action-gh-release@v1
-      with:
-        files: android/app/build/outputs/apk/debug/app-debug.apk
-        tag_name: v${{ github.run_number }}
-        name: Admin APK v${{ github.run_number }}
+    - name: Rename APK
+      run: |
+        mv android/app/build/outputs/apk/debug/app-debug.apk admin.apk
+    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ github.run_number }}
+        release_name: Admin APK v${{ github.run_number }}
+        draft: false
+        prerelease: false
+    
+    - name: Upload APK to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./admin.apk
+        asset_name: admin.apk
+        asset_content_type: application/vnd.android.package-archive
     
     - name: Update version.json
       run: |
-        echo "{\"version\":\"1.0.${{ github.run_number }}\",\"download_url\":\"https://github.com/${{ github.repository }}/releases/download/v${{ github.run_number }}/app-debug.apk\"}" > version.json
+        echo "{\"version\":\"1.0.${{ github.run_number }}\",\"download_url\":\"https://github.com/${{ github.repository }}/releases/download/v${{ github.run_number }}/admin.apk\"}" > version.json
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         git add version.json
