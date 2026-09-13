@@ -14,6 +14,7 @@ on:
       - 'version.json'
       - 'capacitor.config.json'
       - 'package.json'
+      - '.github/workflows/build-apk.yml'
 
 permissions:
   contents: write
@@ -45,8 +46,18 @@ jobs:
       run: |
         rm -rf node_modules package-lock.json android
         npm install
-        npx cap add android
-        npx cap sync android
+
+    - name: Add Android platform
+      run: npx cap add android
+
+    - name: Create assets directory
+      run: |
+        mkdir -p android/app/src/main/assets/public
+        mkdir -p www
+        echo "<html><body></body></html>" > www/index.html
+
+    - name: Sync Capacitor
+      run: npx cap sync android
 
     - name: Build APK
       run: |
