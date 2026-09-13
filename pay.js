@@ -4,7 +4,7 @@ function escS(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){retu
 function pget(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function pset(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 var SETTINGS=pget('lg_settings',{orange:'032 XX XXX XX',mvola:'070 XX XXX XX',airtel:'033 XX XXX XX',paypal:'paypal.me/logiciel'});
-var CART=pget('lg_cart',[]);
+var CART_KEY='lg_cart_'+(sessionStorage.getItem('lg_session')||(function(){var s='s'+Date.now().toString(36);sessionStorage.setItem('lg_session',s);return s})());var CART=pget(CART_KEY,[]);
 var fab=document.createElement('button');fab.className='pm-fab';fab.onclick=openDrawer;fab.innerHTML='<svg class="ni"><use href="#i-cart"></use></svg><span class="pm-count" id="cartCount">0</span>';document.body.appendChild(fab);
 var dr=document.createElement('div');dr.className='drawer';dr.innerHTML='<div class="drawer-h"><h3 style="font-family:Sora">🛒 Mes achats</h3><button class="btn ghost" style="padding:8px 14px" onclick="closeDrawer()">✕</button></div><div class="drawer-b" id="drawerBody"></div>';document.body.appendChild(dr);
 window.closeDrawer=function(){dr.classList.remove('open')};
